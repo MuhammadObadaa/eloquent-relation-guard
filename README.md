@@ -127,6 +127,8 @@ This will copy `config/eloquent-relation-guard.php` into your application’s `c
    └── tags (App\Models\Tag): [5, 6]
    ```
 
+for more details check the [Documentation](Documentation.md)
+
 ---
 
 ## TODO
