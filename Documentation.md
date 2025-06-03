@@ -11,12 +11,12 @@ This document covers everything you need to know to install, configure, and use 
 3. [Configuration](#configuration)
 4. [Setting Up Your Models](#setting-up-your-models)
    - [Adding the Trait](#adding-the-trait)
-   - [Defining the `$checkRelations` Array](#defining-the-checkrelations-array)
+   - [Defining the `$scanRelations` Array](#defining-the-scanrelations-array)
    - [Type‐Hinting HasOne/HasMany Relations](#type-hinting-hasonemany-relations)
 5. [API Reference](#api-reference)
-   1. [`canBeSafelyDeleted()`](#canbesafelydeleted)
-   2. [`relationStructure(int $depth = 1): array`](#relationstructure)
-   3. [`forceCascadeDelete(): int`](#forcecascadedelete)
+   1. [`canBeSafelyDeleted()`](#canBeSafelyDeleted-bool)
+   2. [`relationStructure(int $depth = 1): array`](#relationstructureint-depth--1-array)
+   3. [`forceCascadeDelete(): int`](#forcecascadedelete-int)
 6. [Console Command: `record:tree`](#console-command-recordtree)
 7. [Advanced Configuration Options](#advanced-configuration-options)
 8. [Troubleshooting & Limitations](#troubleshooting--limitations)
@@ -25,7 +25,7 @@ This document covers everything you need to know to install, configure, and use 
 
 ---
 
-## 1. Introduction
+## Introduction
 
 **Eloquent Relation Guard** helps you safely inspect and manage deep HasOne/HasMany relationships on your Laravel models:
 
@@ -38,7 +38,7 @@ You no longer need to rely solely on `ON DELETE CASCADE` (or worry about `ON DEL
 
 ---
 
-## 2. Installation
+## Installation
 
 1. **Require the package via Composer**  
 ```bash
@@ -63,7 +63,7 @@ You no longer need to rely solely on `ON DELETE CASCADE` (or worry about `ON DEL
 
 ---
 
-## 3. Configuration
+## Configuration
 
 Open `config/eloquent-relation-guard.php`. By default, you’ll see:
 
@@ -97,7 +97,7 @@ return [
 
 ---
 
-## 4. Setting Up Your Models
+## Setting Up Your Models
 
 ### Adding the Trait
 
@@ -201,11 +201,11 @@ class Comment extends Model
 
 ---
 
-## 5. API Reference
+## API Reference
 
 After you’ve added the `HasRelationalDependencies` trait and (optionally) defined `$scanRelations`, your model now has these three public methods:
 
-### 5.1 `canBeSafelyDeleted(): bool`
+### `canBeSafelyDeleted(): bool`
 
 * **What it does**:
 
@@ -235,7 +235,7 @@ After you’ve added the `HasRelationalDependencies` trait and (optionally) defi
 
 ---
 
-### 5.2 `relationStructure(int $depth = 1): array`
+### `relationStructure(int $depth = 1): array`
 
 * **What it does**:
 
@@ -297,7 +297,7 @@ After you’ve added the `HasRelationalDependencies` trait and (optionally) defi
 
 ---
 
-### 5.3 `forceCascadeDelete(): int`
+### `forceCascadeDelete(): int`
 
 * **What it does**:
 
@@ -326,7 +326,7 @@ After you’ve added the `HasRelationalDependencies` trait and (optionally) defi
 
 ---
 
-## 6. Console Command: `record:tree`
+## Console Command: `record:tree`
 
 This Artisan command gives you a **tree‐style, interactive visualization** of a model’s relation structure (with IDs):
 
@@ -363,7 +363,7 @@ Relation Tree for App\Models\Post (ID: 42) | Depth: 2
 
 ---
 
-## 7. Advanced Configuration Options
+## Advanced Configuration Options
 
 At present, your package only offers a single config key:
 
@@ -399,7 +399,7 @@ return [
 
 ---
 
-## 8. Troubleshooting & Limitations
+## Troubleshooting & Limitations
 
 * **Database Memory/Timeouts**:
   If one model has thousands of related children across many nested levels, eager loading everything at once may exceed memory or cause timeouts. Future versions may allow you to chunk or limit scans.
@@ -419,7 +419,7 @@ return [
 
 ---
 
-## 9. Contributing & Issue Tracker
+## Contributing & Issue Tracker
 
 Found a bug? Have a feature request? Want to contribute enhancements? Please use the GitHub issue tracker:
 
@@ -436,12 +436,10 @@ Found a bug? Have a feature request? Want to contribute enhancements? Please use
 
 ---
 
-## 10. License
+## License
 
 **Eloquent Relation Guard** package is open source, licensed under [MIT](LICENSE). Feel free to use, modify, and redistribute.
 
 ---
 
 > *Happy deleting—safely!*
-
-```

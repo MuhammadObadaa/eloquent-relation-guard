@@ -1,5 +1,5 @@
 # Release Notes
 
-## V0.9.0
+## v0.9.0
 
 * Beta package core

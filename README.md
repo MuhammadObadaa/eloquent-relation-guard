@@ -1,5 +1,10 @@
-<p align="center"><img width="307" height="63" src="/art/logo.jpg" alt="Package logo"></p>
+<p align="center"><img src="/art/logo.jpg" alt="Package logo"></p>
+
 # Eloquent Relation Guard
+
+Laravel package by [MuhammadObadaa](https://github.com/MuhammadObadaa)
+
+---
 
 **Scan, inspect, and (optionally) force‐delete Eloquent models along with their HasOne/HasMany branches—without relying on database‐level cascade or restrict rules.**
 
@@ -36,6 +41,7 @@ This will copy `config/eloquent-relation-guard.php` into your application’s `c
 
    ```php
    use Illuminate\Database\Eloquent\Model;
+   use Illuminate\Database\Eloquent\Relations\HasMany;
    use EloquentRelation\Guard\Traits\HasRelationalDependencies;
 
    class Post extends Model
@@ -52,6 +58,12 @@ This will copy `config/eloquent-relation-guard.php` into your application’s `c
            'tags',                 // scan Post::tags() (if tags is a HasMany relationship)
            '*'                     // or simply, add all first-level relations
        ];
+
+       // Type hint (mention the return type of) each HasOne/HasMany relation method
+       public function comments(): HasMany
+       {
+          return $this->hasMany(Comment::class);
+       }
    }
    ```
 
@@ -134,6 +146,7 @@ for more details check the [Documentation](Documentation.md)
 ## TODO
 
 * [ ] Add support for **soft deletes** (detecting `deleted_at` and deciding whether to include or ignore soft‐deleted records).
+* [ ] Support **morph relations** along with HasOne and HasMany relations.
 * [ ] Allow **configurable thresholds** for maximum nodes/depth before aborting the scan.
 * [ ] Add **event hooks** (e.g., `beforeDeleteGuarded`, `afterDeleteGuarded`) so users can tap into the delete process.
 * [ ] Provide **Laravel Nova/Filament** integrations for visual “Are you sure?” modals.
